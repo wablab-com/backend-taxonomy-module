@@ -45,4 +45,36 @@ class AddTaxonomyServiceTest extends TestCase
     {
         $this->assertNull($this->service->getInput('invalid_key'));
     }
+    
+    public function testAddingMultipleInputsToTheService()
+    {
+        $inputs = [
+            'title 1' => 'Category 1',
+            'title 2' => 'Category 2',
+            'title 3' => 'Category 3',
+        ];
+        
+        $this->service->inputs($inputs);
+        $this->assertEquals('Category 1', $this->service->getInput('title 1'));
+        $this->assertEquals('Category 2', $this->service->getInput('title 2'));
+        $this->assertEquals('Category 3', $this->service->getInput('title 3'));
+        
+    }
+    
+    public function testGettingMultipleInputsWithEmptyReturn()
+    {
+        $this->assertEmpty($this->service->getInputs());
+    }
+    
+    public function testGettingMultipleInputs()
+    {
+        $inputs = [
+            'title 1' => 'Category 1',
+            'title 2' => 'Category 2',
+            'title 3' => 'Category 3',
+        ];
+    
+        $this->service->inputs($inputs);
+        $this->assertIsArray($this->service->getInputs());
+    }
 }

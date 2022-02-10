@@ -12,5 +12,6 @@ interface IService
     public function process():static;
 
     public function output(string $key):mixed;
+    public function outputs():array;
     public function setOutput(string $key, mixed $value):void;
 }

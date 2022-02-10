@@ -17,7 +17,8 @@ class AddTaxonomyService implements IAddTaxonomyService
 
     public function inputs(array $inputs): static
     {
-        // TODO: Implement inputs() method.
+        $this->inputs = $inputs;
+        return $this;
     }
 
     public function getInput(string $key): mixed
@@ -27,7 +28,7 @@ class AddTaxonomyService implements IAddTaxonomyService
 
     public function getInputs(): array
     {
-        // TODO: Implement getInputs() method.
+        return $this->inputs;
     }
 
     public function process(): static
@@ -39,9 +40,14 @@ class AddTaxonomyService implements IAddTaxonomyService
     {
         // TODO: Implement output() method.
     }
-
+    
+    public function outputs(): array {
+        // TODO: Implement outputs() method.
+    }
+    
     public function setOutput(string $key, mixed $value): void
     {
         // TODO: Implement setOutput() method.
     }
+    
 }
