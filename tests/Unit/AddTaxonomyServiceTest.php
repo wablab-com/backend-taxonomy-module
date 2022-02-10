@@ -77,4 +77,23 @@ class AddTaxonomyServiceTest extends TestCase
         $this->service->inputs($inputs);
         $this->assertIsArray($this->service->getInputs());
     }
+
+    public function testOutputIfKeyNotExist() {
+        $key = 'invalid key';
+        $output = $this->service->output($key);
+        $this->assertNull($output);
+    }
+
+    public function testSetOutput() {
+        $this->service->setOutput('username', 'ahmad');
+        $this->assertEquals('ahmad', $this->service->output('username'));
+    }
+
+    public function testOutputIfKeyIsValid() {
+
+        $this->service->setOutput('title', 'Category 1');
+        $this->assertEquals('Category 1', $this->service->output('title'));
+
+
+    }
 }

@@ -4,10 +4,13 @@ namespace WabLab\Taxonomy\Service;
 
 use WabLab\Taxonomy\Contract\Service\IAddTaxonomyService;
 
+use function PHPUnit\Framework\isEmpty;
+
 class AddTaxonomyService implements IAddTaxonomyService
 {
 
     protected array $inputs = [];
+    protected array $outputs = [];
 
     public function input(string $key, mixed $value): static
     {
@@ -38,7 +41,7 @@ class AddTaxonomyService implements IAddTaxonomyService
 
     public function output(string $key): mixed
     {
-        // TODO: Implement output() method.
+        return $this->outputs[$key] ?? null;
     }
     
     public function outputs(): array {
@@ -47,7 +50,7 @@ class AddTaxonomyService implements IAddTaxonomyService
     
     public function setOutput(string $key, mixed $value): void
     {
-        // TODO: Implement setOutput() method.
+        $this->outputs[$key] = $value;
     }
     
 }
