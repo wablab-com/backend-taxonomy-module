@@ -7,7 +7,7 @@ class AddTaxonomyService extends AbstractService implements IAddTaxonomyService
     
     public function process(): static
     {
-        // TODO: Implement process() method.
+        return $this;
     }
     
 }

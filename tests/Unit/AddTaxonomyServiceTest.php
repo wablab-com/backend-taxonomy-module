@@ -27,4 +27,8 @@ class AddTaxonomyServiceTest extends TestCase
     {
         $this->assertInstanceOf(IAddTaxonomyService::class, $this->service);
     }
+    
+    public function testThatProcessMethodReturnsClassReference() {
+        $this->assertInstanceOf(AddTaxonomyService::class, $this->service->process());
+    }
 }
