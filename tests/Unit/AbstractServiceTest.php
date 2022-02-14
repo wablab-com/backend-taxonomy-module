@@ -7,7 +7,7 @@ use WabLab\Taxonomy\Contract\Service\IAddTaxonomyService;
 use WabLab\Taxonomy\Service\AddTaxonomyService;
 
 
-class AddTaxonomyServiceTest extends TestCase
+class AbstractServiceTest extends TestCase
 {
     protected AddTaxonomyService $service;
 
@@ -93,7 +93,19 @@ class AddTaxonomyServiceTest extends TestCase
 
         $this->service->setOutput('title', 'Category 1');
         $this->assertEquals('Category 1', $this->service->output('title'));
+    }
 
+    public function testOutputsArrayDataTypeShouldBeReturned() {
+        $outputs = $this->service->outputs();
+        $this->assertIsArray($outputs);
+    }
 
+    public function testOutputAfterSetOutput() {
+        $this->service->setOutput('title', 'Category 1');
+        $this->service->setOutput('title 2', 'Category 2');
+        $outputs = $this->service->outputs();
+        $this->assertCount(2, $outputs, 'The out count is not matched');
+        $this->assertEquals('Category 1', $outputs['title']);
+        $this->assertEquals('Category 2', $outputs['title 2']);
     }
 }
