@@ -5,7 +5,6 @@ namespace WabLab\Taxonomy\Test\Unit;
 use PHPUnit\Framework\TestCase;
 use WabLab\Taxonomy\Contract\Service\IAddTaxonomyService;
 use WabLab\Taxonomy\Contract\Service\IService;
-use WabLab\Taxonomy\Service\AbstractService;
 use WabLab\Taxonomy\Service\AddTaxonomyService;
 
 class AddTaxonomyServiceTest extends TestCase
@@ -29,6 +28,24 @@ class AddTaxonomyServiceTest extends TestCase
     }
     
     public function testThatProcessMethodReturnsClassReference() {
-        $this->assertInstanceOf(AddTaxonomyService::class, $this->service->process());
+        $this->assertInstanceOf(AddTaxonomyService::class, $this->service->input('title', 'this is the title')->process());
+    }
+    
+    public function testInputForRequiredIfTitleDoesNotExistThenThrowException() {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/ title /i');
+        $this->service->input('description', 'this is the description')->input('parent_id', 1)->process();
+    }
+    
+    public function testDescriptionInputForRequiredStringOrNullValueThenThrowException() {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/ description /i');
+        $this->service->input('description', [])->input('title', 'test title')->process();
+    }
+    
+    public function testParentIdInputForRequiredStringOrNullValueThenThrowException() {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/ parent_id /i');
+        $this->service->input('parent_id', [])->input('title', 'test title')->process();
     }
 }
