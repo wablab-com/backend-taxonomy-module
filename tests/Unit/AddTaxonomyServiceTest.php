@@ -4,12 +4,11 @@ namespace WabLab\Taxonomy\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use WabLab\Taxonomy\Contract\Service\IAddTaxonomyService;
-use WabLab\Taxonomy\Contract\Service\IService;
 use WabLab\Taxonomy\Service\AddTaxonomyService;
 
 class AddTaxonomyServiceTest extends TestCase
 {
-    protected IService $service;
+    protected AddTaxonomyService $service;
 
     public function setUp(): void
     {
