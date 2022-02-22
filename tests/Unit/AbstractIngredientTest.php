@@ -12,8 +12,13 @@ class AbstractIngredientTest extends TestCase {
         parent::setUp();
         $this->mockedClass = $this->getMockForAbstractClass(AbstractIngredient::class);
     }
-    public function testIsInitialazble() {
-        $this->getMockForAbstractClass(AbstractIngredient::class);
+    
+    protected function tearDown(): void {
+        parent::tearDown();
+        unset($this->mockedClass);
+    }
+    
+    public function testIsInitializable() {
         $this->assertInstanceOf(AbstractIngredient::class, $this->mockedClass);
     }
     
@@ -22,6 +27,21 @@ class AbstractIngredientTest extends TestCase {
     }
     
     public function testSingleInputGetterShouldReturnAsSelfReference() {
-        $this->assertInstanceOf(AbstractIngredient::class, $this->mockedClass->returnInput('title'));
+        $this->assertInstanceOf(AbstractIngredient::class, $this->mockedClass->returnInput('title', $return));
+    }
+    
+    public function testSingleInputSetterAndGetterNullReturn() {
+        $this->mockedClass->returnInput('invalid_key', $returnValue);
+        $this->assertNull($returnValue);
+    }
+    
+    public function testSingleInputSetterAndGetter() {
+        $this->mockedClass->setInput('title', 'title value')->returnInput('title', $returnValue);
+        $this->assertEquals('title value', $returnValue, 'Values are not the same!');
+    }
+    
+    public function testSingleInputGetterDefaultReturn() {
+        $this->mockedClass->returnInput('invalid_key', $returnValue, 'Default return');
+        $this->assertEquals('Default return', $returnValue);
     }
 }
